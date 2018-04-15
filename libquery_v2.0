@@ -108,30 +108,44 @@
                     }
                 }
             },
-            className: function() {
+            className: function(cName) {
+            	if(cName===undefined){
                 return el.className;
+            	}else{
+            		el.className=cName;
+            	}
             },
-            childNodes: function() {
+            append: function(child){
+            	if(child!==undefined){
+            		el.appendChild(child);
+            	}
+            },
+            childNodes: function(childs) {
                 return el.childNodes;
             },
             keyDown: function(fn) {
-                context.onkeydown = fn
+                context.onkeydown = fn;
             },
             keyUp: function(fn) {
-                context.onkeyup = fn
+                context.onkeyup = fn;
             },
             blur: function(fn) {
                 if (el !== undefined)
-                    el.onblur = fn
+                    el.onblur = fn;
                 if (nodes.length !== 0) {
                     for (var i = 0; i < nodes.length; i++) {
-                        nodes[i].onblur = fn
+                        nodes[i].onblur = fn;
                     }
                 }
             },
+            removeFocus: function(){
+            	if(el!==undefined){
+            		el.blur();
+            	}
+            },
             ready: function(fn) {
-                context.onreadystatechange = fn
-                context.onload = fn
+                context.onreadystatechange = fn;
+                context.onload = fn;
             },
             slideUp: function(duration, callback) {
                 if (el !== undefined) {
@@ -189,6 +203,7 @@
                 } else {
                     if (el !== undefined) {
                         el.textContent = str
+                        if(el.value !== undefined) el.value=str;
                     } else if (nodes.length !== 0) {
                         for (var i = 0; i < nodes.length; i++) {
                             nodes[i].textContent = txt
@@ -258,4 +273,3 @@
         return new jq.init(e);
     }
 }())
-
